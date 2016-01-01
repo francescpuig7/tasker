@@ -5,8 +5,9 @@ define([
     'views/user/login',
     'views/user/signup',
     'views/header',
-    'views/order/vl_orders'],
-  function (G, $, CollectionOrder, UserLogin, UserSignup, HeaderView, OrdersView) {
+    'views/order/vl_orders',
+    'views/dashboard/vl_dashboard'],
+  function (G, $, CollectionOrder, UserLogin, UserSignup, HeaderView, OrdersView, Dashboard) {
 
     var Ui = {}
 
@@ -16,6 +17,7 @@ define([
 
     var orderList = new CollectionOrder()
     var ordersView = new OrdersView({collection: orderList})
+    var dashboardView = new Dashboard()
 
     var $content = $('#content')
 
@@ -45,6 +47,11 @@ define([
           });
           break
         }
+          case 'dashboard': {
+              $content.html(dashboardView.render.apply(dashboardView, args).el)
+              dashboardView.delegateEvents()
+              break
+          }
       }
     }
 
@@ -55,9 +62,9 @@ define([
 
     Ui.showHome = function () {
       if (G.localStorage.hasItem('user')) {
-        Ui.switchContent('orders')
+        Ui.switchContent('orders') //si l'usuari esta logejat
       } else {
-        Ui.switchContent('login')
+        Ui.switchContent('login') //si l'usuari no esta logejat
       }
     }
 

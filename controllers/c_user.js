@@ -25,7 +25,7 @@ module.exports = function (app) {
       dao.User.checkPassword(req.body.username, req.body.password)
         .then(function (user) {
           var token = jwt.sign({username: user.username}, secret);
-          util.jsonResponse(res, {jwt: token, username: user.username});
+          util.jsonResponse(res, {jwt: token, username: user.username, email: user.email});
         })
         .catch(util.resendError.bind(util, res))
         .done();

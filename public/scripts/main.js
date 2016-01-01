@@ -26,6 +26,6 @@ require([
 
   // This deletes the user information in startup for debugging purposes
   // SHOULD NOT GO IN PRODUCTION
-  Global.localStorage.removeItem('user')
+ // Global.localStorage.removeItem('user')
   App.init()
 })
