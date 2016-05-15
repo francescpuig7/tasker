@@ -17,7 +17,7 @@ define([
 
     var orderList = new CollectionOrder()
     var ordersView = new OrdersView({collection: orderList})
-    var dashboardView = new Dashboard()
+    var dashboardView = new Dashboard() //INITIALIZE DE LA VISTA
 
     var $content = $('#content')
 

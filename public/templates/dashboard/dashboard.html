@@ -12,17 +12,36 @@
     </style>
 </head>
 <body>
-
+<!-- MODAL -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Nova Tasca</h4>
+            </div>
+            <div class="modal-body">
+                <input type="text" class="form-control" name="titol" placeholder="Titol"><br>
+                <textarea class="form-control" rows="3" name="descripcio" placeholder="Descripcio" style="resize: none;"></textarea><br>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Tancar</button>
+                <button type="button" class="btn btn-success" id="buttonSaveChanges">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- CONTENT -->
 <div class="container-fluid" id="contingutPissarra">
     <h1>Dashboard</h1>
+    <button id="buttonNewTask" class="btn btn-default" data-toggle="modal" data-target="#myModal"> New Task </button>
     <p>This is your tasks</p>
-    <p>Nom </p><input type="text">
-    <button id="buttonOpenDashboard">Nova Tasca</button>
+    <!--<p>Nom </p><input type="text">
+    <button id="buttonOpenDashboard">Nova Tasca</button>-->
     <div class="row">
-        <div id="openTask" class="col-sm-4" id="list" style="background-color:indianred; padding-bottom: 50%;">
-        </div>
-        <div class="col-sm-4" style="background-color:yellow; padding-bottom: 50%;">Assigned</div>
-        <div class="col-sm-4" style="background-color:greenyellow; padding-bottom: 50%;">Finish</div>
+        <div id="openTask" class="col-sm-4" id="list" style="background-color:indianred; padding-bottom: 50%; border-radius: 20px;"><br><br>Not Assigned</div>
+        <div class="col-sm-4" style="background-color:yellow; padding-bottom: 50%; border-radius: 20px;"><br><br>Assigned</div>
+        <div class="col-sm-4" style="background-color:greenyellow; padding-bottom: 50%; border-radius: 20px;"><br><br>Finish</div>
     </div>
 </div>
 

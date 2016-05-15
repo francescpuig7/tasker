@@ -3,9 +3,9 @@ define([
   'api'
 ], function (G, Api) {
 
-  var Login = {}
+  var Task = {}
 
-  Login.init =  function (P) {
+  Task.init =  function (P) {
 
       G.on('view:login:request', function (username, password) {
         Api.login({username: username, password: password})
@@ -14,21 +14,21 @@ define([
           .done()
       })
 
-      G.on('api:login:successful', function (user) {
-        G.localStorage.setItem('user', user);
-        G.trigger('presenter:switch-ui:home')
+      G.on('api:createtask:successful', function (task) {
+        G.localStorage.setItem('task', task);
+        //G.trigger('presenter:switch-ui:home')
       })
 
-      G.on('api:login:error', P.Ui.errorAPI)
+      G.on('api:createtask:error', P.Ui.errorAPI)
 
-      G.on('view:signup:request', function (data) {
+      G.on('view:task:request', function (data) {
         Api.signup(data)
           .then(G.trigger.bind(G, 'api:signup:successful'))
           .catch(G.trigger.bind(G, 'api:signup:error'))
           .done()
       })
 
-      G.on('api:signup:successful', function (user) { //la promesa m'ha retornat successful, vaig al home
+      G.on('api:signup:successful', function (task) { //la promesa m'ha retornat successful, vaig al home
         G.trigger('presenter:switch-ui:home')
       })
 
@@ -36,6 +36,6 @@ define([
 
     }
 
-  return Login
+  return Task
 
 })

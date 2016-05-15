@@ -9,5 +9,12 @@ module.exports = function (app) {
 // User registration
   router.post('/api/users', Users.create)
 
+  /*router.post( '/api/task', function( request, response ) {
+    var Task = new TaskModel({
+      title: request.body.title,
+      message: request.body.message
+    });
+  }*/
+
   return router;
 }

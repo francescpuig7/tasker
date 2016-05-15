@@ -31,6 +31,10 @@ define(['jquery', 'promises'], function ($, P) {
     });
   };
 
+  Api.setTask = function(){
+
+  };
+
   Api.getOrders = function () {
     return new P(function (resolve, reject) {
       var user = Backbone.localStorage.getItem('user');
