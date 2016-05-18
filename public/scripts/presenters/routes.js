@@ -13,6 +13,8 @@ define([
         'signup': 'signup',
         'orders': 'showOrders',
         'dashboard' : 'showDashboard', //afegim la ruta per veure pissarra
+        'tasks': 'showTasks',
+
         // Default
         '*actions': 'defaultAction'
       },
@@ -31,6 +33,10 @@ define([
 
       showDashboard: function(){
         P.Ui.switchContent('dashboard')
+      },
+
+      showTasks: function(){
+        P.Ui.switchContent('tasks')
       }
     })
 

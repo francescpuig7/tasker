@@ -29,6 +29,12 @@ define([
 
     }
 
+    G.on('presenter:dashboard:newTask', function(){
+        alert("Tasca creada");
+        var $root = $(this).closest(".root");
+
+    })
+
     return Dashboard
 
 })
