@@ -60,7 +60,7 @@ define([
                 var $divFinishTask= this.$el.find('#finishTask').first();
 
                 $divContentTask.append(newTask);
-                
+
 
                 newTask.find('.btn-primary').click(function(){
                     //d'aquest botò d'aquesta tasca en concret li programo el click
