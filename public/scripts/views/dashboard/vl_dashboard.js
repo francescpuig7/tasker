@@ -15,8 +15,9 @@ define([
         className: 'container',
 
         initialize: function() {
-            this.template = G._.template(tl_dashboard)
-            this.templateTask = G._.template(tl_task)
+            this.template = G._.template(tl_dashboard);
+            this.templateTask = G._.template(tl_task);
+            //this.collection = new TaskCollection();
         },
 
         events:{ //tots els events
@@ -61,7 +62,6 @@ define([
 
                 $divContentTask.append(newTask);
 
-
                 newTask.find('.btn-primary').click(function(){
                     //d'aquest botò d'aquesta tasca en concret li programo el click
                     $(this).html('Tancar Tasca');
@@ -93,6 +93,7 @@ define([
             //si es html compila i retorna
             // llavors el find amb un selector find('openbutton') et retorna un array
             //per aixo cal first o get(0) o get(14)
+            this.collection.create(newTask);
         },
 
         render: function() {
