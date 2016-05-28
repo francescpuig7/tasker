@@ -6,8 +6,9 @@ define([
     'views/user/signup',
     'views/header',
     'views/order/vl_orders',
-    'views/dashboard/vl_dashboard'],
-  function (G, $, CollectionOrder, UserLogin, UserSignup, HeaderView, OrdersView, Dashboard) {
+    'views/dashboard/vl_dashboard',
+    'views/task/vl_tasks'],
+  function (G, $, CollectionOrder, UserLogin, UserSignup, HeaderView, OrdersView, Dashboard, TaskView) {
 
     var Ui = {}
 
@@ -18,6 +19,8 @@ define([
     var orderList = new CollectionOrder()
     var ordersView = new OrdersView({collection: orderList})
     var dashboardView = new Dashboard() //INITIALIZE DE LA VISTA
+
+    var taskView = new TaskView()
 
     var $content = $('#content')
 
@@ -50,6 +53,11 @@ define([
           case 'dashboard': {
               $content.html(dashboardView.render.apply(dashboardView, args).el)
               dashboardView.delegateEvents()
+              break
+          }
+          case 'tasks':{
+              $content.html(taskView.render.apply(taskView, args).el)
+              taskView.delegateEvents()
               break
           }
       }

@@ -57,5 +57,25 @@ define(['jquery', 'promises'], function ($, P) {
     });
   };
 
+  Api.newTask = function(data){
+    return new P(function(resolve, reject) {
+      var user = Backbone.localStorage.getItem('user');
+      if (!user) {
+        return reject(new Error("API call needs user authenticated"))
+      }
+      var token = user.jwt;
+      $.ajax({
+        url: '/api/users/self/task',
+        dataType: 'json',
+        type: 'post',
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+        processData: false,
+        success: resolve,
+        error: reject
+      });
+    })
+  };
+
   return Api;
 });
