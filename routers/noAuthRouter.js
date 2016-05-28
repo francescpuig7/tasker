@@ -8,6 +8,7 @@ module.exports = function (app) {
   router.post('/api/users/login', Users.login)
 // User registration
   router.post('/api/users', Users.create)
+  //router.post( '/api/task', Task.create)
 
   /*router.post( '/api/task', function( request, response ) {
     var Task = new TaskModel({

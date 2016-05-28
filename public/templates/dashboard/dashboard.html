@@ -1,17 +1,4 @@
-<head>
-    <title>Bootstrap Example</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-    <style type="text/css">
-        #polcalla:hover {
-            cursor: pointer;
-        }
-    </style>
-</head>
-<body>
+
 <!-- MODAL -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
@@ -39,10 +26,28 @@
     <!--<p>Nom </p><input type="text">
     <button id="buttonOpenDashboard">Nova Tasca</button>-->
     <div class="row">
-        <div id="openTask" class="col-sm-4" id="list" style="background-color:indianred; padding-bottom: 50%; border-radius: 20px;"><br><br>Not Assigned</div>
-        <div class="col-sm-4" style="background-color:yellow; padding-bottom: 50%; border-radius: 20px;"><br><br>Assigned</div>
-        <div class="col-sm-4" style="background-color:greenyellow; padding-bottom: 50%; border-radius: 20px;"><br><br>Finish</div>
+        <div class="col-xs-4">
+            <div class="panel panel-warning" id="notAssignedTask">
+                <div class="panel-heading"> NOT ASSIGNED </div>
+                <div class="panel-body"></div>
+            </div>
+        </div>
+        <div class="col-xs-4">
+            <div class="panel panel-primary" id="assignedTask">
+                <div class="panel-heading"> ASSIGNED </div>
+                <div class="panel-body"></div>
+            </div>
+        </div>
+        <div class="col-xs-4">
+            <div class="panel panel-success" id="finishTask">
+                <div class="panel-heading"> FINISHED </div>
+                <div class="panel-body"></div>
+            </div>
+        </div>
+        <!--
+        <div class="col-md-3" id="notAssignedTask" style="background-color:#FF9933; padding-bottom: 50%; border-radius: 20px;"><br><br><h4>Not Assigned</h4></div>
+        <div class="col-md-3" id="assignedTask" style="background-color:#FFFF33; padding-bottom: 50%; border-radius: 20px; margin-left: 15px; margin-right: 15px;"><br><br><h4>Assigned</h4></div>
+        <div class="col-md-3" id="finishTask" style="background-color:#00FF99; padding-bottom: 50%; border-radius: 20px;"><br><br><h4>Finish</h4></div>
+    -->
     </div>
 </div>
-
-</body>
