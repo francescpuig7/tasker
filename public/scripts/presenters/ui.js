@@ -2,15 +2,15 @@ define([
     '../global',
     'jquery',
     'collections/c_orders',
-    'collections/c_tasks',
     'views/user/login',
     'views/user/signup',
     'views/header',
     'views/order/vl_orders',
     'views/dashboard/vl_dashboard',
     'views/task/vl_tasks',
-    'views/user/profile'],
-  function (G, $, CollectionOrder, CollectionOrder, UserLogin, UserSignup, HeaderView, OrdersView, Dashboard, TaskView, Profile) {
+    'views/user/profile',
+    'collections/c_tasks'],
+  function (G, $, CollectionOrder, UserLogin, UserSignup, HeaderView, OrdersView, Dashboard, TaskView, Profile, CollectionTask) {
 
     var Ui = {}
 
@@ -22,7 +22,8 @@ define([
     var ordersView = new OrdersView({collection: orderList}) //enllaça la vista amb la collection anterior
 
       var taskList = new CollectionTask()
-      var dashboardView = new Dashboard({collection:taskList}) //INITIALIZE DE LA VISTA
+      //var dashboardView = new Dashboard({collection:taskList}) //INITIALIZE DE LA VISTA
+      var dashboardView = new Dashboard() //INITIALIZE DE LA VISTA
 
     var taskView = new TaskView()
     var profileView = new Profile()
@@ -56,13 +57,15 @@ define([
           break
         }
         case 'dashboard': {
-            taskList.fetch({
+            /*taskList.fetch({
                 success:function(){
                     $content.html(dashboardView.render.apply(dashboardView, args).el)
                     dashboardView.delegateEvents()
                 },
                 error: Ui.error
-            });
+            });*/
+            $content.html(dashboardView.render.apply(dashboardView, args).el)
+            dashboardView.delegateEvents()
             break
         }
         case 'tasks':{

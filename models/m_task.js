@@ -4,7 +4,8 @@
 module.exports = function(sequelize, DataTypes){
     var Task = sequelize.define('Task',{
         name : DataTypes.STRING(512),
-        description: DataTypes.STRING(2048)
+        description: DataTypes.STRING(2048),
+        taskState: DataTypes.STRING(25)
     }, {
         cassMethods : {
             associate : function(models){
