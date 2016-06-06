@@ -19,7 +19,7 @@ define([
         initialize: function() {
             this.template = G._.template(tl_dashboard);
             this.templateTask = G._.template(tl_task);
-            this.collect = new CollectionTasks;
+            this.collection = new CollectionTasks;
         },
 
         events:{ //tots els events
