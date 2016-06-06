@@ -10,16 +10,19 @@ module.exports = function(app) {
 
     return {
         create: function (req, res) {
-            util.checkParams(req.body, ['name', 'description']);
 
             db.sequelize.transaction(function (t) {
                 return dao.User.getByUsername(req.user.username, t)
                     .then(function (user){
-                        if (!user) util.sendError(500, util.Error.ERR_ENTITY_NOT_FOUND, "User from token does not exist");
-                        else return dao.Task.create(req.body, user, t);
+                        if (!user) util.sendError(res, 500, util.Error.ERR_ENTITY_NOT_FOUND, "User from token does not exist");
+                        else return P.all([user, dao.Task.create(req.body, user, t)]);
+                    }).spread(function(user, newTask){
+                        //tenim usuari i tasca. Fem les relacion
+                        return P.all([user, newTask, user.addOwnedTask(newTask, {transaction: t})]);
+                    }).spread(function(user, newTask) {
+                        return user.addAssignedTask(newTask, {transaction: t});
                     })
-            })
-                .then(util.jsonResponse.bind(util, res))
+            }).then(util.jsonResponse.bind(util, res))
                 .catch(util.resendError.bind(util, res))
                 .done();
         },

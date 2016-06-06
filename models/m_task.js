@@ -8,7 +8,8 @@ module.exports = function(sequelize, DataTypes){
     }, {
         cassMethods : {
             associate : function(models){
-                Task.belongsTo(models.User)
+                Task.belongsTo(models.User,{as: 'OwnerUser', through:'OwnedTask', foreignKey:'OwnerUserId'})
+                Task.belongsTo(models.User,{as: 'AssignedUser', through:'AssignedTask', foreignKey:'AssignedUserId'})
             }
         }
     });

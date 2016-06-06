@@ -16,16 +16,14 @@
     </ul>
     <ul class="nav navbar-nav navbar-right">
         <% if (user && user.username) { %>
-        <li><a href='#profile'><%= user.email %></a></li>
+        <!--<li><a href='#profile'><%= user.email %></a></li>-->
         <li><a href='#name' data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span class="caret"></span>
             <%= user.username %></a>
             <ul class="dropdown-menu">
-                <li><a href="profile">Perfil</a></li>
-                <li><a href="#">Conta</a></li>
-                <li><a href="#">Mel!∫</a></li>
+                <li><a href="#profile">Perfil</a></li>
                 <li role="separator" class="divider"></li>
-                <li><a href="#">Hola</a></li>
+                <li><a href="#logout">Exit</a></li>
             </ul>
         </li>
         <% } %>

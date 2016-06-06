@@ -8,7 +8,7 @@
 define(['backbone'],
     function(Backbone){
         var TaskModel = Backbone.Model.extend({
-            urlRoot: "/api/tasks"
+            url: "/api/users/self/task"
         });
         return TaskModel;
     });

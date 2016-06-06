@@ -14,6 +14,7 @@ define([
         'orders': 'showOrders',
         'dashboard' : 'showDashboard', //afegim la ruta per veure pissarra
         'tasks': 'showTasks',
+        'profile': 'showProfile',
 
         // Default
         '*actions': 'defaultAction'
@@ -34,6 +35,11 @@ define([
       showDashboard: function(){
         P.Ui.switchContent('dashboard')
       },
+
+      showProfile: function(){
+        P.Ui.switchContent('profile')
+      },
+
 
       showTasks: function(){
         P.Ui.switchContent('tasks')

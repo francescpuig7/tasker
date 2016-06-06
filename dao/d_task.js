@@ -12,14 +12,7 @@ module.exports = function(app, dao){
     }
 
     Task.create = function(task_data, user, t){
-        return db.Task.create(task_data, util.addTrans(t,{}))
-            .then(function(task){
-                return task.setUser(user, util.addTrans(t, {}))
-            });
+        return db.Task.create(task_data, util.addTrans(t,{}));
     }
-
-    /*Task.setUser = function (user, t){
-        return db.Task.set('UserId',user);
-    }*/
     return Task;
 }

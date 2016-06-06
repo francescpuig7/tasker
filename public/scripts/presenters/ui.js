@@ -2,13 +2,15 @@ define([
     '../global',
     'jquery',
     'collections/c_orders',
+    'collections/c_tasks',
     'views/user/login',
     'views/user/signup',
     'views/header',
     'views/order/vl_orders',
     'views/dashboard/vl_dashboard',
-    'views/task/vl_tasks'],
-  function (G, $, CollectionOrder, UserLogin, UserSignup, HeaderView, OrdersView, Dashboard, TaskView) {
+    'views/task/vl_tasks',
+    'views/user/profile'],
+  function (G, $, CollectionOrder, CollectionOrder, UserLogin, UserSignup, HeaderView, OrdersView, Dashboard, TaskView, Profile) {
 
     var Ui = {}
 
@@ -17,10 +19,13 @@ define([
     var signupView = new UserSignup()
 
     var orderList = new CollectionOrder()
-    var ordersView = new OrdersView({collection: orderList})
-    var dashboardView = new Dashboard() //INITIALIZE DE LA VISTA
+    var ordersView = new OrdersView({collection: orderList}) //enllaça la vista amb la collection anterior
+
+      var taskList = new CollectionTask()
+      var dashboardView = new Dashboard({collection:taskList}) //INITIALIZE DE LA VISTA
 
     var taskView = new TaskView()
+    var profileView = new Profile()
 
     var $content = $('#content')
 
@@ -50,16 +55,26 @@ define([
           });
           break
         }
-          case 'dashboard': {
-              $content.html(dashboardView.render.apply(dashboardView, args).el)
-              dashboardView.delegateEvents()
-              break
-          }
-          case 'tasks':{
-              $content.html(taskView.render.apply(taskView, args).el)
-              taskView.delegateEvents()
-              break
-          }
+        case 'dashboard': {
+            taskList.fetch({
+                success:function(){
+                    $content.html(dashboardView.render.apply(dashboardView, args).el)
+                    dashboardView.delegateEvents()
+                },
+                error: Ui.error
+            });
+            break
+        }
+        case 'tasks':{
+            $content.html(taskView.render.apply(taskView, args).el)
+            taskView.delegateEvents()
+            break
+        }
+        case 'profile':{
+            $content.html(profileView.render.apply(profileView, args).el)
+            profileView.delegateEvents()
+            break
+        }
       }
     }
 

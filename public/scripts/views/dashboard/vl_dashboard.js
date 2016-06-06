@@ -6,8 +6,9 @@ define([
     // Using the Require.js text! plugin, we are loaded raw text
     // which will be used as our views primary template
     'text!/templates/dashboard/dashboard.html',
-    'text!/templates/task/contentTask.html'
-], function(G, tl_dashboard, tl_task) {
+    'text!/templates/task/contentTask.html',
+    'models/m_task'
+], function(G, tl_dashboard, tl_task,  Tasca) {
 
     //nova pissarra
     var Dashboard = G.Backbone.View.extend({
@@ -17,7 +18,6 @@ define([
         initialize: function() {
             this.template = G._.template(tl_dashboard);
             this.templateTask = G._.template(tl_task);
-            //this.collection = new TaskCollection();
         },
 
         events:{ //tots els events
@@ -34,11 +34,11 @@ define([
             if((this.$('[name=titol]').val() != '') && (this.$('[name=descripcio]').val() != '')) {
                 //$('#myModal').modal({ keyboard: false })
                 //definicio classe fasca
-                function Tasca(a,b){
+               /* function Tasca(a,b){
                     titol: this.titol=a;
                     descripcio: this.descripcio=b;
-                }
-                var _tasca= new Tasca(this.$('[name=titol]').val(),this.$('[name=descripcio]'));
+                }*/
+                var _tasca= new Tasca({name: this.$('[name=titol]').val(), description: this.$('[name=descripcio]').val()});
 
                 //amagem el modal i reiniciem el contingut al fer el hidden quan salta l'event amagat
                 this.$el.find('#myModal').modal('hide');
@@ -93,11 +93,14 @@ define([
             //si es html compila i retorna
             // llavors el find amb un selector find('openbutton') et retorna un array
             //per aixo cal first o get(0) o get(14)
-            this.collection.create(newTask);
+
+            //Guardem a la BDD la tasca nova
+            _tasca.save({success:function() {this.collection.add(_tasca)}, error:function() {newTaska.remove()}});
         },
 
         render: function() {
             this.$el.html(this.template({dashboard: this.collection}))
+
             return this
         }
 

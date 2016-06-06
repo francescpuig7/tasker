@@ -23,7 +23,7 @@ module.exports = function (app) {
       host: "127.0.0.1",
       port: 3306
     }
-    var force = false;
+    var force = true;
   } else if ('openshift' === app.get('env')) {
     var db_credentials = {
       dbname: process.env.OPENSHIFT_APP_NAME,
