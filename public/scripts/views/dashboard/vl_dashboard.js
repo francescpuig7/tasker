@@ -22,6 +22,7 @@ define([
             this.collection = new CollectionTasks;
         },
 
+
         events:{ //tots els events
             'click #buttonOpenDashboard': 'openDashboard',
             'click #buttonSaveChanges': 'createTask'
@@ -97,12 +98,27 @@ define([
             //per aixo cal first o get(0) o get(14)
 
             //Guardem a la BDD la tasca nova
-            _tasca.save({success:function() {this.collection.add(_tasca)}, error:function() {newTaska.remove()}});
+
+            var taskLists= this.collection;
+            _tasca.save(null, {
+                success: function (model, response) {
+                    console.log("success");
+                    taskLists.add(_tasca);
+                },
+                error: function (model, response) {
+                    console.log("error");
+                }
+            });
+
+
+            this.collection= taskLists;
+            for (var i=0; i<this.collection.length; i++) { console.log("length: "+this.collection.length); }
+
+
         },
 
         render: function() {
             this.$el.html(this.template({dashboard: this.collection}))
-
             return this
         }
 

@@ -5,7 +5,6 @@ module.exports = function(app) {
   var Orders = rootRequire('controllers/c_orders')(app)
   var util = rootRequire('util')
   var Tasks = rootRequire('controllers/c_task')(app)
-
   var router = express.Router()
 
   router.use(jwt)
@@ -14,5 +13,6 @@ module.exports = function(app) {
   router.get('/api/users/self/orders', Orders.getOrders, util.sendAuthError)
   router.post('/api/users/self/orders', Orders.create, util.sendAuthError)
   router.post('/api/users/self/task', Tasks.create, util.sendAuthError)
+  //router.get('/api/users/self/task', Tasks.getTask, util.sendAuthError)
   return router
 }

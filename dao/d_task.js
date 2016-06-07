@@ -14,5 +14,6 @@ module.exports = function(app, dao){
     Task.create = function(task_data, user, t){
         return db.Task.create(task_data, util.addTrans(t,{}));
     }
+
     return Task;
 }
