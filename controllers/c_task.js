@@ -17,7 +17,7 @@ module.exports = function(app) {
                         if (!user) util.sendError(res, 500, util.Error.ERR_ENTITY_NOT_FOUND, "User from token does not exist");
                         else return P.all([user, dao.Task.create(req.body, user, t)]);
                     }).spread(function(user, newTask){
-                        //tenim usuari i tasca. Fem les relacion
+                        //tenim usuari i tasca. Fem les relacions
                         return P.all([user, newTask, user.addOwnedTask(newTask, {transaction: t})]);
                     }).spread(function(user, newTask) {
                         return user.addAssignedTask(newTask, {transaction: t});
