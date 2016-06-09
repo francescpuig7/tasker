@@ -7,9 +7,8 @@ define([
     // which will be used as our views primary template
     'text!/templates/dashboard/dashboard.html',
     'text!/templates/task/contentTask.html',
-    'collections/c_tasks',
     'models/m_task'
-], function(G, tl_dashboard, tl_task, CollectionTasks,  Tasca) {
+], function(G, tl_dashboard, tl_task,  Tasca) {
 
     //nova pissarra
     var Dashboard = G.Backbone.View.extend({
@@ -19,7 +18,6 @@ define([
         initialize: function() {
             this.template = G._.template(tl_dashboard);
             this.templateTask = G._.template(tl_task);
-            //this.collection = new CollectionTasks;
         },
 
 

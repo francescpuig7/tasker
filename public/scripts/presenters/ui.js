@@ -109,7 +109,7 @@ define([
         taskList.fetch({
             success: Ui.switchContent.bind(Ui, 'dashboard'),
             error: Ui.error
-        })
+        });
     }
 
     Ui.errorBackbone  = function (data, res) {
