@@ -8,7 +8,7 @@ define([
     'text!/templates/dashboard/dashboard.html',
     'text!/templates/task/contentTask.html',
     'models/m_task'
-], function(G, tl_dashboard, tl_task,  Tasca) {
+], function(G, tl_dashboard, tl_task, Tasca) {
 
     //nova pissarra
     var Dashboard = G.Backbone.View.extend({
