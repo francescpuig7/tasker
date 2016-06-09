@@ -27,6 +27,13 @@ module.exports = function(app) {
                 .done();
         },
 
+        getTasks: function(req, res){
+            dao.Task.getTasks(req.user.username, {})
+                .then(util.jsonResponse.bind(util,res))
+                .catch(util.resendError.bind(util, res))
+                .done();
+        },
+
         getById: function (req, res) {
             if (!req.params.id) util.stdErr500(res, "Missing parameter 'id'");
             else

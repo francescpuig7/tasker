@@ -19,7 +19,7 @@ define([
         initialize: function() {
             this.template = G._.template(tl_dashboard);
             this.templateTask = G._.template(tl_task);
-            this.collection = new CollectionTasks;
+            //this.collection = new CollectionTasks;
         },
 
         events:{ //tots els events
@@ -36,10 +36,7 @@ define([
             if((this.$('[name=titol]').val() != '') && (this.$('[name=descripcio]').val() != '')) {
                 //$('#myModal').modal({ keyboard: false })
                 //definicio classe fasca
-               /* function Tasca(a,b){
-                    titol: this.titol=a;
-                    descripcio: this.descripcio=b;
-                }*/
+
                 var _tasca= new Tasca({name: this.$('[name=titol]').val(), description: this.$('[name=descripcio]').val()});
 
                 //amagem el modal i reiniciem el contingut al fer el hidden quan salta l'event amagat

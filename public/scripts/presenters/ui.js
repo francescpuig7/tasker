@@ -22,8 +22,8 @@ define([
     var ordersView = new OrdersView({collection: orderList}) //enllaça la vista amb la collection anterior
 
       var taskList = new CollectionTask()
-      //var dashboardView = new Dashboard({collection:taskList}) //INITIALIZE DE LA VISTA
-      var dashboardView = new Dashboard() //INITIALIZE DE LA VISTA
+      var dashboardView = new Dashboard({collection:taskList}) //INITIALIZE DE LA VISTA
+      //var dashboardView = new Dashboard() //INITIALIZE DE LA VISTA
 
     var taskView = new TaskView()
     var profileView = new Profile()
@@ -57,22 +57,22 @@ define([
           break
         }
         case 'dashboard': {
-            /*taskList.fetch({
+            taskList.fetch({
                 success:function(){
                     $content.html(dashboardView.render.apply(dashboardView, args).el)
                     dashboardView.delegateEvents()
                 },
                 error: Ui.error
-            });*/
-            $content.html(dashboardView.render.apply(dashboardView, args).el)
-            dashboardView.delegateEvents()
+            });
+            /*$content.html(dashboardView.render.apply(dashboardView, args).el)
+            dashboardView.delegateEvents()*/
             break
         }
-        case 'tasks':{
+       /* case 'tasks':{
             $content.html(taskView.render.apply(taskView, args).el)
             taskView.delegateEvents()
             break
-        }
+        }*/
         case 'profile':{
             $content.html(profileView.render.apply(profileView, args).el)
             profileView.delegateEvents()
@@ -103,6 +103,13 @@ define([
         success: Ui.switchContent.bind(Ui, 'orders'),
         error: Ui.error
       });
+    }
+
+    Ui.showTasks = function (){
+        taskList.fetch({
+            success: Ui.switchContent.bind(Ui, 'dashboard'),
+            error: Ui.error
+        })
     }
 
     Ui.errorBackbone  = function (data, res) {

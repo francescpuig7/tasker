@@ -14,5 +14,18 @@ module.exports = function(app, dao){
     Task.create = function(task_data, user, t){
         return db.Task.create(task_data, util.addTrans(t,{}));
     }
+
+    Task.getTasks = function(username, options, t){
+        var opt = options || {};
+        return dao.User.getByUsername(username, t)
+            .then(function(user){
+                if(!user) util.throwError(200, util.Error.ERR_ENTITY_NOT_FOUND, 'There is no User with username: ' + username);
+                //return P.all([user, user.getOwnedTasks(util.addTrans(t, opt))]);
+                return user.getAssignedTask(util.addTrans(t, opt));
+            });
+           /* .spread(function(user, tasks){
+                return user.getAssignedTask(util.addTrans(t,opt));
+            })*/
+    }
     return Task;
 }
