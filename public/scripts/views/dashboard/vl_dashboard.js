@@ -22,6 +22,10 @@ define([
             //this.collection = new CollectionTasks;
         },
 
+        codiRep: function(){
+            alert("proveta")
+        },
+
 
         events:{ //tots els events
             'click #buttonOpenDashboard': 'openDashboard',
@@ -33,7 +37,7 @@ define([
         },
 
         createTask: function(){ //hem capturat el boto de guardar canvis de crear tasca
-
+            this.codiRep();
             if((this.$('[name=titol]').val() != '') && (this.$('[name=descripcio]').val() != '')) {
                 //$('#myModal').modal({ keyboard: false })
                 //definicio classe fasca

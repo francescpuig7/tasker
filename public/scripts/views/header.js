@@ -12,10 +12,11 @@ define([
     initialize: function () {
       this.template = G._.template(t_header)
       G.on('localstorage:set:user', this.setUserData.bind(this))
+
     },
 
     render: function() {
-      this.$el.html(this.template({user: userData}))
+      this.$el.html(this.template({user: userData, email: userData}))
       return this
     },
 
