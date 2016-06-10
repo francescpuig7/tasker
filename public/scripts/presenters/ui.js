@@ -9,8 +9,9 @@ define([
     'views/dashboard/vl_dashboard',
     'views/task/vl_tasks',
     'views/user/profile',
+    'views/manual/vl_howto',
     'collections/c_tasks'],
-  function (G, $, CollectionOrder, UserLogin, UserSignup, HeaderView, OrdersView, Dashboard, TaskView, Profile, CollectionTask) {
+  function (G, $, CollectionOrder, UserLogin, UserSignup, HeaderView, OrdersView, Dashboard, TaskView, Profile, HowTo, CollectionTask) {
 
     var Ui = {}
 
@@ -27,6 +28,7 @@ define([
 
     var taskView = new TaskView()
     var profileView = new Profile()
+    var howtoView = new HowTo()
 
     var $content = $('#content')
 
@@ -76,6 +78,11 @@ define([
         case 'profile':{
             $content.html(profileView.render.apply(profileView, args).el)
             profileView.delegateEvents()
+            break
+        }
+        case 'howto':{
+            $content.html(howtoView.render.apply(howtoView, args).el)
+            howtoView.delegateEvents()
             break
         }
       }

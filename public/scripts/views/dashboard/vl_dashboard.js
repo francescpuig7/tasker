@@ -38,7 +38,7 @@ define([
                 //$('#myModal').modal({ keyboard: false })
                 //definicio classe fasca
 
-                var _tasca= new Tasca({name: this.$('[name=titol]').val(), description: this.$('[name=descripcio]').val()});
+                var _tasca= new Tasca({name: this.$('[name=titol]').val(), description: this.$('[name=descripcio]').val(), taskState: "notAssigned"});
 
                 //amagem el modal i reiniciem el contingut al fer el hidden quan salta l'event amagat
                 this.$el.find('#myModal').modal('hide');
@@ -70,7 +70,8 @@ define([
                     //posare la tasca al div assigned
                     var tascaOberta= $(this).closest('div').parent();
                     $divAssignedTask.append(tascaOberta);
-                    //PK SI CANVIO LES LINIES DE SENTIT NO FUNCIONA???????????????????
+
+                    //_tasca.set({taskState: "assigned"})
 
                     newTask.find('.btn-primary').click(function(){
                         $(this).hide();
@@ -78,6 +79,8 @@ define([
 
                         var tascaTancada= $(this).closest('div').parent();
                         $divFinishTask.append(tascaTancada);
+
+                        //_tasca.set({taskState: "finish"})
                     })
 
                 })
@@ -116,6 +119,38 @@ define([
 
         render: function() {
             this.$el.html(this.template({dashboard: this.collection}))
+            console.log("L: "+this.collection.length);
+
+            var _task= this.collection.get(2);
+            var n= _task.get("name");
+            var d= _task.get("description");
+
+            //tasca js passant titol i missatge al template
+            var newTask = $(this.templateTask({title: n, message: d}));
+
+            var $divContentTask= this.$el.find('#notAssignedTask').first(); //accedint a un element del DOM, continua sent un selector, pero cal find perque esta en un altre html
+            var $divAssignedTask= this.$el.find('#assignedTask').first();
+            var $divFinishTask= this.$el.find('#finishTask').first();
+
+            $divContentTask.append(newTask);
+
+            newTask.find('.btn-primary').click(function(){
+                //d'aquest botò d'aquesta tasca en concret li programo el click
+                $(this).html('Tancar Tasca');
+                $(this).closest('div').parent().remove();
+
+                var tascaOberta= $(this).closest('div').parent();
+                $divAssignedTask.append(tascaOberta);
+
+                newTask.find('.btn-primary').click(function(){
+                    $(this).hide();
+                    $(this).closest('div').parent().remove();
+                    var tascaTancada= $(this).closest('div').parent();
+                    $divFinishTask.append(tascaTancada);
+                })
+
+            })
+
             return this
         }
 
