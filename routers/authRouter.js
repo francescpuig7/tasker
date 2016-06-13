@@ -5,6 +5,7 @@ module.exports = function(app) {
   var Orders = rootRequire('controllers/c_orders')(app)
   var util = rootRequire('util')
   var Tasks = rootRequire('controllers/c_task')(app)
+  var User = rootRequire('controllers/c_user') (app)
 
   var router = express.Router()
 
@@ -15,5 +16,7 @@ module.exports = function(app) {
   router.post('/api/users/self/orders', Orders.create, util.sendAuthError)
   router.post('/api/users/self/task', Tasks.create, util.sendAuthError)
   router.get('/api/users/self/task', Tasks.getTasks, util.sendAuthError)
+  router.put('/api/users', User.updateUser, util.sendAuthError)
+
   return router
 }

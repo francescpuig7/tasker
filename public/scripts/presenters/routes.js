@@ -38,7 +38,7 @@ define([
       },
 
       showProfile: function(){
-        P.Ui.switchContent('profile')
+        P.Ui.switchContent('profile', G.localStorage.getItem('user'))
       },
 
       showTasks: function(){

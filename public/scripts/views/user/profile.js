@@ -7,7 +7,7 @@ define([
     'text!/templates/user/userProfile.html',
     'text!/templates/user/configProfile.html'
 ], function(G, t_profile, t_userProfile, t_configProfile){
-    var userData = {}
+
 
     var Profile = G.Backbone.View.extend({
         template: G._.template(t_profile),
@@ -17,7 +17,6 @@ define([
 
         initialize: function(){
             this.templage = G._.template(t_profile);
-            userData = G.localStorage.getItem('user');
         },
 
         events:{
@@ -30,7 +29,7 @@ define([
             //posa al panell dret l'informació del perfil
             var $rightPanel = this.$el.find('#contingutPerfil');
             //$rightPanel.html(t_userProfile);
-            $rightPanel.html(this.temp({name: userData.username, email: userData.email}));
+            $rightPanel.html(this.temp({user: this.userData.name, email: this.userData.email}));
         },
 
         loadGeneralConfig: function(){
@@ -38,35 +37,17 @@ define([
             //es carrega al mateix div (substitució)
             var $rightPanel = this.$el.find('#contingutPerfil');
             $rightPanel.html(this.tempConfigProfile);//.then({InputUserName: userData.username, InputEmail:userData.email});
-            this.$el.find('#InputUserName').val(userData.username);
-            this.$el.find('#InputEmail').val(userData.email);
+            this.$el.find('#InputUserName').val(this.userData.username);
+            this.$el.find('#InputEmail').val(this.userData.email);
         },
 
         saveChanges: function(){
-            //var id = userData.id;
-            var user = new m_user({id:userData.id});
-            user.fetch({
-                success:function(user){
-                    user.save({name:this.$el.find('#InputUserName').val(),email:this.$el.find('#InputEmail').val()},{
-                        success:function(model){
-                            alert("Dades actualitzades");
-                        },
-                        error:function(model){
-                            alert("Error al actualitzar les dades");
-                        }
-                    });
-                }
-            })
-            alert("clickat save")
+            G.trigger('view:profile:update',this.userData, this.$('#InputUserName').val(), this.$('#InputEmail').val(), this.$('#InputPassword').val())
         },
 
-        setUserData: function(user){
-            userData = user
-            this.render()
-        },
-
-        render: function(){
-            this.$el.html(this.template()).find('#contingutPerfil').html(t_userProfile);
+        render: function(user){
+            this.userData = user;
+            this.$el.html(this.template()).find('#contingutPerfil').html(this.temp({user: user}));
             return this
         }
     });

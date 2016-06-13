@@ -37,5 +37,9 @@ module.exports = function (app) {
     return db.User.create(user_data, util.addTrans(t, {}));
   }
 
+  User.setUser = function(user_data, t){
+    return db.User.update(user_data, util.addTrans(t, {}));
+  }
+
   return User;
 }
