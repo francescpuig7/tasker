@@ -1,6 +1,4 @@
-/**
- * Created by Sergi on 13/06/2016.
- */
+
 define([
     'global',
     'api'
@@ -22,3 +20,4 @@ define([
     }
     return Profile;
 })
+

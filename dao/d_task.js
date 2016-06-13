@@ -27,5 +27,13 @@ module.exports = function(app, dao){
                 return user.getAssignedTask(util.addTrans(t,opt));
             })*/
     }
+
+    Task.updateTask = function (task_data, t) {
+        return db.Task.findByPrimary(task_data.id, {transaction: t})
+            .then(function (task) {
+                return task.update(task_data, {transaction: t})
+            })
+    }
+
     return Task;
 }

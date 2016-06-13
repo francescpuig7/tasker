@@ -11,10 +11,12 @@ module.exports = function(app) {
 
   router.use(jwt)
 
+  //va a la definició del seu controller
   router.get('/api/orders/:id', Orders.getById)
   router.get('/api/users/self/orders', Orders.getOrders, util.sendAuthError)
   router.post('/api/users/self/orders', Orders.create, util.sendAuthError)
   router.post('/api/users/self/task', Tasks.create, util.sendAuthError)
+  router.put('/api/users/self/task', Tasks.updateTask, util.sendAuthError)
   router.get('/api/users/self/task', Tasks.getTasks, util.sendAuthError)
   router.put('/api/users', User.updateUser, util.sendAuthError)
 
