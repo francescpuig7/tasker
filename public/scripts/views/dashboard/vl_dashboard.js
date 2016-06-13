@@ -7,8 +7,9 @@ define([
     // which will be used as our views primary template
     'text!/templates/dashboard/dashboard.html',
     'text!/templates/task/contentTask.html',
-    'models/m_task'
-], function(G, tl_dashboard, tl_task, Tasca) {
+    'models/m_task',
+    'models/m_user'
+], function(G, tl_dashboard, tl_task, Tasca, User) {
 
     //nova pissarra
     var Dashboard = G.Backbone.View.extend({
@@ -73,7 +74,7 @@ define([
                     var tascaOberta= $(this).closest('div').parent();
                     $divAssignedTask.append(tascaOberta);
 
-                    //_tasca.set({taskState: "assigned"})
+                    _tasca.set({taskState: "assigned"})
 
                     newTask.find('.btn-primary').click(function(){
                         $(this).hide();
@@ -82,7 +83,7 @@ define([
                         var tascaTancada= $(this).closest('div').parent();
                         $divFinishTask.append(tascaTancada);
 
-                        //_tasca.set({taskState: "finish"})
+                        _tasca.set({taskState: "finish"})
                     })
 
                 })
@@ -114,14 +115,18 @@ define([
 
 
             this.collection= taskLists;
-            for (var i=0; i<this.collection.length; i++) { console.log("length: "+this.collection.length); }
+            console.log("Length: "+this.collection.length);
 
 
         },
 
         render: function() {
             this.$el.html(this.template({dashboard: this.collection}))
-            console.log("L: "+this.collection.length);
+            console.log("Length: "+this.collection.length);
+
+            var $divContentTask = this.$el.find('#notAssignedTask').first();
+            var $divAssignedTask = this.$el.find('#assignedTask').first();
+            var $divFinishTask = this.$el.find('#finishTask').first();
 
             for(var i=1; i<= this.collection.length; i++) {
                 var _task = this.collection.get(i);
@@ -131,11 +136,18 @@ define([
                 //tasca js passant titol i missatge al template
                 var newTask = $(this.templateTask({title: n, message: d}));
 
-                var $divContentTask = this.$el.find('#notAssignedTask').first(); //accedint a un element del DOM, continua sent un selector, pero cal find perque esta en un altre html
-                var $divAssignedTask = this.$el.find('#assignedTask').first();
-                var $divFinishTask = this.$el.find('#finishTask').first();
-
-                $divContentTask.append(newTask);
+                if(_task.get("taskState") == "notAssigned"){
+                    console.log("taska esta NOT assigned")
+                    $divContentTask.append(newTask)
+                }
+                else if(_task.get("taskState") == "assigned"){
+                    console.log("taska esta assigned")
+                    $divAssignedTask.append(newTask)
+                }
+                else{
+                    console.log("taska desasignada")
+                    $divFinishTask.append(newTask)
+                }
 
                 newTask.find('.btn-primary').click(function () {
                     //d'aquest botò d'aquesta tasca en concret li programo el click
@@ -145,11 +157,27 @@ define([
                     var tascaOberta = $(this).closest('div').parent();
                     $divAssignedTask.append(tascaOberta);
 
+                    _task.save({taskState: 'assigned'}, {
+                        success: function () {
+                            console.log("Tasca modificada")
+                        },
+                        error: function() {
+                            console.log("Error a l'actualitzar tasca")
+                        }});
+
                     newTask.find('.btn-primary').click(function () {
                         $(this).hide();
                         $(this).closest('div').parent().remove();
                         var tascaTancada = $(this).closest('div').parent();
                         $divFinishTask.append(tascaTancada);
+
+                        _task.save({taskState: 'assigned'}, {
+                            success: function () {
+                                console.log("Tasca eliminada")
+                            },
+                            error: function() {
+                                console.log("Error a l'actualitzar tasca")
+                            }});
                     })
 
                 })
