@@ -22,7 +22,7 @@ define([
         },
 
         codiRep: function(){
-            alert("proveta")
+            alert("provassa")
         },
 
 
