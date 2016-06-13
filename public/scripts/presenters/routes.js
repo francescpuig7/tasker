@@ -15,6 +15,7 @@ define([
         'dashboard' : 'showDashboard', //afegim la ruta per veure pissarra
         'tasks': 'showTasks',
         'profile': 'showProfile',
+        'howto': 'showHowto',
 
         // Default
         '*actions': 'defaultAction'
@@ -40,9 +41,12 @@ define([
         P.Ui.switchContent('profile')
       },
 
-
       showTasks: function(){
         P.Ui.switchContent('tasks')
+      },
+
+      showHowto: function(){
+        P.Ui.switchContent('howto')
       }
     })
 
