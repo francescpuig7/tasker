@@ -16,7 +16,7 @@ define([
 
         initialize: function(){
             this.templage = G._.template(t_profile);
-            userData = G.localStorage.getItem('user')
+            userData = G.localStorage.getItem('user');
         },
 
         events:{

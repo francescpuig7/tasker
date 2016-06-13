@@ -123,35 +123,37 @@ define([
             this.$el.html(this.template({dashboard: this.collection}))
             console.log("L: "+this.collection.length);
 
-            var _task= this.collection.get(2);
-            var n= _task.get("name");
-            var d= _task.get("description");
+            for(var i=1; i<= this.collection.length; i++) {
+                var _task = this.collection.get(i);
+                var n = _task.get("name");
+                var d = _task.get("description");
 
-            //tasca js passant titol i missatge al template
-            var newTask = $(this.templateTask({title: n, message: d}));
+                //tasca js passant titol i missatge al template
+                var newTask = $(this.templateTask({title: n, message: d}));
 
-            var $divContentTask= this.$el.find('#notAssignedTask').first(); //accedint a un element del DOM, continua sent un selector, pero cal find perque esta en un altre html
-            var $divAssignedTask= this.$el.find('#assignedTask').first();
-            var $divFinishTask= this.$el.find('#finishTask').first();
+                var $divContentTask = this.$el.find('#notAssignedTask').first(); //accedint a un element del DOM, continua sent un selector, pero cal find perque esta en un altre html
+                var $divAssignedTask = this.$el.find('#assignedTask').first();
+                var $divFinishTask = this.$el.find('#finishTask').first();
 
-            $divContentTask.append(newTask);
+                $divContentTask.append(newTask);
 
-            newTask.find('.btn-primary').click(function(){
-                //d'aquest botò d'aquesta tasca en concret li programo el click
-                $(this).html('Tancar Tasca');
-                $(this).closest('div').parent().remove();
-
-                var tascaOberta= $(this).closest('div').parent();
-                $divAssignedTask.append(tascaOberta);
-
-                newTask.find('.btn-primary').click(function(){
-                    $(this).hide();
+                newTask.find('.btn-primary').click(function () {
+                    //d'aquest botò d'aquesta tasca en concret li programo el click
+                    $(this).html('Tancar Tasca');
                     $(this).closest('div').parent().remove();
-                    var tascaTancada= $(this).closest('div').parent();
-                    $divFinishTask.append(tascaTancada);
-                })
 
-            })
+                    var tascaOberta = $(this).closest('div').parent();
+                    $divAssignedTask.append(tascaOberta);
+
+                    newTask.find('.btn-primary').click(function () {
+                        $(this).hide();
+                        $(this).closest('div').parent().remove();
+                        var tascaTancada = $(this).closest('div').parent();
+                        $divFinishTask.append(tascaTancada);
+                    })
+
+                })
+            }
 
             return this
         }
