@@ -13,10 +13,14 @@
 
         <br><br><hr>
         <div class="row">
-            <div class="col-md-6">
-                <label for="InputUserName">User Name</label>
-                <input type="text" class="form-control" id="InputUserName" placeholder="">
-                <button id="cercarUsuaris" class="btn btn-success" role="button">Cerca Usuaris</button>
+            <div class="col-lg-6">
+                <label>Cerca per nom d'usuari</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="InputUserName" placeholder="name">
+                    <span class="input-group-btn">
+                    <button id="cercarUsuaris" class="btn btn-success" role="button" type="button">Cerca Usuaris</button>
+                    </span>
+                </div>
             </div>
             <div class="col-md-6">
                 <div class="lista">
@@ -24,12 +28,17 @@
             </div>
         </div>
 
-        <br><br><hr>
+        <br><hr>
         <div class="row">
-            <div class="col-md-6">
-                <label for="InputEmailName">Email Name</label>
-                <p><input type="text" class="form-control" id="InputEmailName" placeholder=""><button id="cercaUsuarisEmail" class="btn btn-success" role="button">Cerca Usuaris</button></p>
-            </div>
+            <div class="col-lg-6">
+                <label>Cerca per e-mail</label>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="InputEmailName" placeholder="@e-mail">
+                    <span class="input-group-btn">
+                    <button id="cercaUsuarisEmail" class="btn btn-success" role="button" type="button">Cerca Usuaris</button>
+                    </span>
+                </div><!-- /input-group -->
+            </div><!-- /.col-lg-6 -->
             <div class="col-md-6">
                 <div class="listb">
                 </div>
