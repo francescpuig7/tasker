@@ -19,6 +19,7 @@ module.exports = function(app) {
   router.put('/api/users/self/task', Tasks.updateTask, util.sendAuthError)
   router.get('/api/users/self/task', Tasks.getTasks, util.sendAuthError)
   router.put('/api/users', User.updateUser, util.sendAuthError)
+  router.get('/api/users',User.getUsers, util.sendAuthError)
 
   return router
 }

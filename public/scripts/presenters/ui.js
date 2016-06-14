@@ -11,8 +11,9 @@ define([
     'views/user/profile',
     'views/manual/vl_howto',
     'collections/c_tasks',
-    'views/team/vl_team'],
-  function (G, $, CollectionOrder, UserLogin, UserSignup, HeaderView, OrdersView, Dashboard, TaskView, Profile, HowTo, CollectionTask, Teams) {
+    'views/team/vl_team',
+    'collections/c_users'],
+  function (G, $, CollectionOrder, UserLogin, UserSignup, HeaderView, OrdersView, Dashboard, TaskView, Profile, HowTo, CollectionTask, Teams, CollectionUser) {
 
     var Ui = {}
 
@@ -27,10 +28,12 @@ define([
       var dashboardView = new Dashboard({collection:taskList}) //INITIALIZE DE LA VISTA
       //var dashboardView = new Dashboard() //INITIALIZE DE LA VISTA
 
+      var userList = new CollectionUser()
+
     var taskView = new TaskView()
     var profileView = new Profile()
     var howtoView = new HowTo()
-    var teamView = new Teams({collection: taskList})
+    var teamView = new Teams({collection: userList})
 
     var $content = $('#content')
 
@@ -88,7 +91,7 @@ define([
             break
         }
         case 'team':{
-            taskList.fetch({
+            userList.fetch({
                 success: function () {
                     $content.html(teamView.render.apply(teamView, args).el)
                     teamView.delegateEvents()
@@ -132,7 +135,7 @@ define([
     }
 
       Ui.showTeams = function(){
-          taskList.fetch({
+          userList.fetch({
               success: Ui.switchContent.bind(Ui, 'team'),
               error: Ui.error
           });

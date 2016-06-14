@@ -41,5 +41,9 @@ module.exports = function (app) {
     return db.User.update(user_data, util.addTrans(t, {}));
   }
 
+  User.getUsers = function (user_data, t) {
+    return db.User.findAll(util.addTrans(t,{}));
+  }
+
   return User;
 }

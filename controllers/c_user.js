@@ -67,6 +67,40 @@ module.exports = function (app) {
       }).then(util.jsonResponse.bind(util, res))
         .catch(util.resendError.bind(util, res))
         .done();
-    }
+    },
+
+      getUsers: function (req, res) {
+          db.sequelize.transaction(function(t){
+              return db.User.findAll({transaction: t})
+          }).then(util.jsonResponse.bind(util, res))
+            .catch(util.resendError.bind(util, res))
+            .done();
+      },
+  /*
+      getUsers: function (req, res) {
+          db.sequelize.transaction(function (t) {
+              return dao.User.findAll({transaction: t});
+          }).then(util.jsonResponse.bind(util, res))
+            .catch(util.resendError.bind(udtil,res))
+            .done();
+      },
+    getUsers: function(req,res){
+        db.sequelize.transaction(function (t) {
+            return dao.User.getUsers(req.body,t)
+                .then(util.jsonResponse.bind(util,res))
+                .catch(util.resendError.bind(util,res))
+                .done()
+        })
+        //util.checkParams(req.body, ['username', 'password']);
+    },*/
+
+
+
+      getTasks: function(req, res){
+          dao.Task.getTasks(req.user.username, {})
+              .then(util.jsonResponse.bind(util,res))
+              .catch(util.resendError.bind(util, res))
+              .done();
+      },
   }
 }
