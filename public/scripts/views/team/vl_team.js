@@ -29,6 +29,7 @@ define([
         },
 
         searchTeamByEmail: function(){
+            alert("show")
             G.trigger('view:emailTeam:show', this.collection, this.$el, this.userData.email, this.$el.find('#InputEmailName').val())
         },
 

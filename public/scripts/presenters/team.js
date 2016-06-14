@@ -46,6 +46,7 @@ define([
                 var _user= collectionTasks.get(i)
                 var _userEmail = _user.get("email")
 
+                //selector.find(".panel-body").find('.listb').child().remove()
                 if(Me!= _userEmail){
                     if(_userEmail.indexOf(inputText) !== -1){
                         var $root = selector.find(".panel-body")
