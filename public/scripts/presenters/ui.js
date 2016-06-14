@@ -10,8 +10,9 @@ define([
     'views/task/vl_tasks',
     'views/user/profile',
     'views/manual/vl_howto',
-    'collections/c_tasks'],
-  function (G, $, CollectionOrder, UserLogin, UserSignup, HeaderView, OrdersView, Dashboard, TaskView, Profile, HowTo, CollectionTask) {
+    'collections/c_tasks',
+    'views/team/vl_team'],
+  function (G, $, CollectionOrder, UserLogin, UserSignup, HeaderView, OrdersView, Dashboard, TaskView, Profile, HowTo, CollectionTask, Teams) {
 
     var Ui = {}
 
@@ -29,6 +30,7 @@ define([
     var taskView = new TaskView()
     var profileView = new Profile()
     var howtoView = new HowTo()
+    var teamView = new Teams({collection: taskList})
 
     var $content = $('#content')
 
@@ -85,6 +87,16 @@ define([
             howtoView.delegateEvents()
             break
         }
+        case 'team':{
+            taskList.fetch({
+                success: function () {
+                    $content.html(teamView.render.apply(teamView, args).el)
+                    teamView.delegateEvents()
+                },
+                error: Ui.error
+            });
+            break
+        }
       }
     }
 
@@ -118,6 +130,13 @@ define([
             error: Ui.error
         });
     }
+
+      Ui.showTeams = function(){
+          taskList.fetch({
+              success: Ui.switchContent.bind(Ui, 'team'),
+              error: Ui.error
+          });
+      }
 
     Ui.errorBackbone  = function (data, res) {
       alert("Error: " + res.responseJSON.error.message)

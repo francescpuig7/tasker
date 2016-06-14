@@ -16,6 +16,7 @@ define([
         'tasks': 'showTasks',
         'profile': 'showProfile',
         'howto': 'showHowto',
+        'team' : 'showTeams',
 
         // Default
         '*actions': 'defaultAction'
@@ -47,6 +48,10 @@ define([
 
       showHowto: function(){
         P.Ui.switchContent('howto')
+      },
+
+      showTeams: function () {
+        P.Ui.switchContent('team', G.localStorage.getItem('user'))
       }
     })
 

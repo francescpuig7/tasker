@@ -4,8 +4,9 @@ define([
   'presenters/login',
   'presenters/orders',
   'presenters/task',
-  'presenters/profile'],
-  function(Ui, Router, Login, Orders, Task, Profile) {
+  'presenters/profile',
+  'presenters/team'],
+  function(Ui, Router, Login, Orders, Task, Profile, Team) {
 
   var Presenters = {}
 
@@ -19,6 +20,7 @@ define([
     Orders.init(Presenters)
     Task.init(Presenters)
     Profile.init(Presenters)
+    Team.init(Presenters)
 
   }
 
