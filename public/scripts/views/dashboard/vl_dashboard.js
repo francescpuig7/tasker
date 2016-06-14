@@ -78,18 +78,18 @@ define([
                  var tascaOberta= $(this).closest('div').parent();
                  $divAssignedTask.append(tascaOberta);
 
-                 _tasca.set({taskState: "assigned"})
+                 _tasca.save({taskState: "assigned",
+                    success: function(model, response){
+                        newTask.find('.btn-primary').click(function(){
+                            $(this).hide();
+                            $(this).closest('div').parent().remove();
 
-                     newTask.find('.btn-primary').click(function(){
-                         $(this).hide();
-                         $(this).closest('div').parent().remove();
+                            var tascaTancada= $(this).closest('div').parent();
+                            $divFinishTask.append(tascaTancada);
 
-                         var tascaTancada= $(this).closest('div').parent();
-                         $divFinishTask.append(tascaTancada);
-
-                         _tasca.set({taskState: "finish"})
-                     })
-
+                            _tasca.save({taskState: "finish"})
+                        })
+                    }})
                  })
 
             } else alert("Els camps no poden estar buits")

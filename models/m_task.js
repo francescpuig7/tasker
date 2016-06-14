@@ -7,7 +7,7 @@ module.exports = function(sequelize, DataTypes){
         description: DataTypes.STRING(2048),
         taskState: DataTypes.STRING(25)
     }, {
-        cassMethods : {
+        classMethods : {
             associate : function(models){
                 Task.belongsTo(models.User,{as: 'OwnerUser', through:'OwnedTask', foreignKey:'OwnerUserId'})
                 Task.belongsTo(models.User,{as: 'AssignedUser', through:'AssignedTask', foreignKey:'AssignedUserId'})

@@ -15,6 +15,7 @@ module.exports = function(sequelize, DataTypes) {
 				User.hasMany(models.Order)
 				User.hasMany(models.Task, {as : 'OwnedTask', foreignKey:'OwnerUserId'})
 				User.hasMany(models.Task, {as : 'AssignedTask', foreignKey:'AssignedUserId'})
+				User.hasMany(models.Note)
 			}
 		}
 	});

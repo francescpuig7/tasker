@@ -12,8 +12,10 @@ define([
     'views/manual/vl_howto',
     'collections/c_tasks',
     'views/team/vl_team',
-    'collections/c_users'],
-  function (G, $, CollectionOrder, UserLogin, UserSignup, HeaderView, OrdersView, Dashboard, TaskView, Profile, HowTo, CollectionTask, Teams, CollectionUser) {
+    'collections/c_users',
+    'views/note/vl_notes',
+    'collections/c_notes'],
+  function (G, $, CollectionOrder, UserLogin, UserSignup, HeaderView, OrdersView, Dashboard, TaskView, Profile, HowTo, CollectionTask, Teams, CollectionUser, Note, CollectionNote) {
 
     var Ui = {}
 
@@ -34,6 +36,9 @@ define([
     var profileView = new Profile()
     var howtoView = new HowTo()
     var teamView = new Teams({collection: userList})
+
+    var noteList = new CollectionNote()
+    var noteView = new Note({collection: noteList})
 
     var $content = $('#content')
 
@@ -100,6 +105,17 @@ define([
             });
             break
         }
+        case 'notes':{
+            /*noteList.fetch({
+                success: function(){
+                    $content.html(noteView.render.apply(noteView, args).el)
+                    noteView.delegateEvents()
+                },
+                error: Ui.error
+            })*/
+            $content.html(noteView.render.apply(noteView, args).el)
+            noteView.delegateEvents()
+        }
       }
     }
 
@@ -139,6 +155,13 @@ define([
               success: Ui.switchContent.bind(Ui, 'team'),
               error: Ui.error
           });
+      }
+
+      Ui.showNotes = function(){
+          noteList.fetch({
+              success: Ui.switchContent.bind(Ui, 'notes'),
+              error: Ui.error
+          })
       }
 
     Ui.errorBackbone  = function (data, res) {
