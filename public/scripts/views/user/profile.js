@@ -22,7 +22,8 @@ define([
         events:{
             'click #btn_perfil': 'loadPerfil',
             'click #btn_config': 'loadGeneralConfig',
-            'click .btn-success': 'saveChanges'
+            'click .btn-success': 'saveChanges',
+            'click #btn_saveNewPassword': 'saveNewPassword'
         },
 
         loadPerfil: function(){
@@ -41,8 +42,16 @@ define([
             this.$el.find('#InputEmail').val(this.userData.email);
         },
 
+        saveNewPassword: function() {
+            if (this.$('#InputPassword').val() != this.$('#RepeatPassword').val()) {
+                alert("Password incorrect");
+                this.$('#InputPassword').val('');
+                this.$('#RepeatPassword').val('');
+            }
+        },
+
         saveChanges: function(){
-            G.trigger('view:profile:update',this.userData, this.$('#InputUserName').val(), this.$('#InputEmail').val(), this.$('#InputPassword').val())
+                G.trigger('view:profile:update',this.userData, this.$('#InputUserName').val(), this.$('#InputEmail').val(), this.$('#InputPassword').val())
         },
 
         render: function(user){

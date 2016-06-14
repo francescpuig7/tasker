@@ -15,7 +15,6 @@ define([
                     alert("Error al actualitzar les dades");
                 }
             });
-            alert("clickat save")
         })
     }
     return Profile;

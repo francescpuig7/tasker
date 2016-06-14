@@ -60,13 +60,20 @@ module.exports = function (app) {
     },
 
     updateUser: function(req, res){
-      util.checkParams(req.body, ['username', 'email', 'password']);
-
-      db.sequelize.transaction(function(t){
-        return dao.User.setUser(req.body, t)
+        util.checkParams(req.body, ['username', 'email', 'password']);
+        dao.User.updateUser(req.body, t)
+            .then(util.jsonResponse.bind(util, res))
+            .catch(util.resendError.bind(util, res))
+      /*db.sequelize.transaction(function(t){
+        return dao.User.getByEmail(req.body.email, t)
+            .then(function (user){
+                if(user){
+                    dao.User.updateUser(req.body, t)
+                }
+            })
       }).then(util.jsonResponse.bind(util, res))
         .catch(util.resendError.bind(util, res))
-        .done();
+        .done();*/
     },
 
       getUsers: function (req, res) {

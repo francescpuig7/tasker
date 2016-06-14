@@ -35,5 +35,21 @@ module.exports = function(app, dao){
             })
     }
 
+    Task.getTasksByUser = function (email, t){
+        return db.User.getByEmail(email, t)
+            .then(function(user){
+                if(!user) util.throwError(400, util.Error.ERR_ENTITY_NOT_FOUND, 'There is no User with this email: ' + email);
+                return user.getAssignedTask(util.addTrans(t, opt));
+            })
+    }
+
+    Task.getTasksById = function (id, t){
+        return db.User.getById(id, t)
+            .then(function(user){
+                if(!user) util.throwError(400, util.Error.ERR_ENTITY_NOT_FOUND, 'There is not User with this id: ' + id);
+                return user.getAssignedTask(util.addTrans(t, opt));
+            })
+    }
+
     return Task;
 }

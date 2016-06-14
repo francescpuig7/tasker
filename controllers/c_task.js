@@ -41,6 +41,20 @@ module.exports = function(app) {
                 .done();
         },
 
+        getTasksByUserEmail: function(req, res){
+            return dao.User.getTasksByUser(req.user.email)
+                .then(util.jsonResponse.bind(util, res))
+                .catch(util.resendError.bind(util, res))
+                .done();
+        },
+
+        getTaskByUserId: function(req, res){
+            return dao.User.getTaskByUserId(req.user.id)
+                .then(util.jsonResponse.bind(util, res))
+                .catch(util.resendError.bind(util, res))
+                .done();
+        },
+
         getById: function (req, res) {
             if (!req.params.id) util.stdErr500(res, "Missing parameter 'id'");
             else

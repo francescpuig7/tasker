@@ -37,8 +37,14 @@ module.exports = function (app) {
     return db.User.create(user_data, util.addTrans(t, {}));
   }
 
-  User.setUser = function(user_data, t){
-    return db.User.update(user_data, util.addTrans(t, {}));
+  User.updateUser = function(user_data, t){
+    return db.User.find(util.addTrans(t,{where: {email:email}}))
+        .then(function (user){
+          if(user){
+            return db.User.update(user_data, {transaction: t})
+            //return db.User.update(user_data, util.addTrans(t, {}));
+          }
+        })
   }
 
   User.getUsers = function (user_data, t) {
