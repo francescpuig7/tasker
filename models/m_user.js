@@ -16,6 +16,7 @@ module.exports = function(sequelize, DataTypes) {
 				User.hasMany(models.Task, {as : 'OwnedTask', foreignKey:'OwnerUserId'})
 				User.hasMany(models.Task, {as : 'AssignedTask', foreignKey:'AssignedUserId'})
 				User.hasMany(models.Note)
+				//User.hasMany(models.Team, {through: TeamUser})
 			}
 		}
 	});
