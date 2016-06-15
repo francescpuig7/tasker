@@ -161,15 +161,17 @@ define([
                 if(_task.get("taskState") == "notAssigned") {
                     newTask.find('.btn-primary').click(function () {
                         //d'aquest botò d'aquesta tasca en concret li programo el click
-                        $(_render).html('Tancar Tasca');
-                        $(_render).closest('div').parent().remove();
+                        $(this).html('Tancar Tasca');
+                        $(this).closest('div').parent().remove();
 
-                        var tascaOberta = $(_render).closest('div').parent();
+                        var tascaOberta = $(this).closest('div').parent();
                         $divAssignedTask.append(tascaOberta);
 
                         //es cerca la tasca recuperant la id amb jquery
-                        var _t = taskList.get($(_render).closest('div').parent().find("#boton").attr("value"))
-                        alert($(_render).closest('div').parent().find("#boton").attr("value"))
+                        var _t = taskList.get($(this).closest('div').parent().find("#boton").attr("value"))
+                        //var _t = taskList.get($("#boton").attr("value"))
+                        alert($(this).closest('div').parent().find("#boton").attr("value"))
+                        //alert($("#boton").attr("value"))
 
                         _t.save({taskState: 'assigned'}, {
                             success: function () {
@@ -181,13 +183,13 @@ define([
                         });
 
                         newTask.find('.btn-primary').click(function () {
-                            $(_render).hide();
-                            $(_render).closest('div').parent().remove();
-                            var tascaTancada = $(_render).closest('div').parent();
+                            $(this).hide();
+                            $(this).closest('div').parent().remove();
+                            var tascaTancada = $(this).closest('div').parent();
                             $divFinishTask.append(tascaTancada);
 
-                            var _ta = taskList.get($(_render).closest('div').parent().find("#boton").attr("value"))
-                            alert($(_render).closest('div').parent().find("#boton").attr("value"))
+                            var _ta = taskList.get($(this).closest('div').parent().find("#boton").attr("value"))
+                            alert($(this).closest('div').parent().find("#boton").attr("value"))
                             _ta.save({taskState: 'finish'}, {
                                 success: function () {
                                     console.log("Tasca eliminada")
