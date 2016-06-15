@@ -20,10 +20,6 @@ define([
             this.templateTask = G._.template(tl_task);
         },
 
-        codiRep: function(){
-            alert("provassa")
-        },
-
 
         events:{ //tots els events
             'click #buttonOpenDashboard': 'openDashboard',
@@ -37,7 +33,6 @@ define([
         },
 
         createTask: function(){ //hem capturat el boto de guardar canvis de crear tasca
-            this.codiRep();
             if((this.$('[name=titol]').val() != '') && (this.$('[name=descripcio]').val() != '')) {
                 //$('#myModal').modal({ keyboard: false })
                 //definicio classe fasca
@@ -70,13 +65,13 @@ define([
                 newTask.find("#boton").hide();
 
                 newTask.find('.btn-primary').click(function(){
-                 //d'aquest botò d'aquesta tasca en concret li programo el click
-                 $(this).html('Tancar Tasca');
-                 $(this).closest('div').parent().remove();
+                        //d'aquest botò d'aquesta tasca en concret li programo el click
+                        $(this).html('Tancar Tasca');
+                        $(this).closest('div').parent().remove();
 
-                 //posare la tasca al div assigned
-                 var tascaOberta= $(this).closest('div').parent();
-                 $divAssignedTask.append(tascaOberta);
+                        //posare la tasca al div assigned
+                        var tascaOberta= $(this).closest('div').parent();
+                        $divAssignedTask.append(tascaOberta);
 
                  _tasca.save({taskState: "assigned",
                     success: function(model, response){
@@ -118,11 +113,8 @@ define([
                 }
             });
 
-
             this.collection= taskLists;
             console.log("Length: "+this.collection.length);
-
-
         },
 
         render: function() {
@@ -135,14 +127,17 @@ define([
             var $divFinishTask = this.$el.find('#finishTask').first();
 
             var taskList= this.collection;
-            for(var i=1; i<= this.collection.length; i++) {
-                var _task = this.collection.get(i);
+            //for(var i=1; i<= this.collection.length; i++) {
+            var _render = this;
+            this.collection.forEach(function(_task){
+                //var _task = this.collection.get(i);
+
                 var n = _task.get("name");
                 var d = _task.get("description");
                 var id = _task.get("id");
 
                 //tasca js passant titol i missatge al template
-                var newTask = $(this.templateTask({title: n, message: d, id: id}));
+                var newTask = $(_render.templateTask({title: n, message: d, id: id}));
 
                 //pintar la tasca a la pissarra que toca
                 if(_task.get("taskState") == "notAssigned"){
@@ -166,15 +161,15 @@ define([
                 if(_task.get("taskState") == "notAssigned") {
                     newTask.find('.btn-primary').click(function () {
                         //d'aquest botò d'aquesta tasca en concret li programo el click
-                        $(this).html('Tancar Tasca');
-                        $(this).closest('div').parent().remove();
+                        $(_render).html('Tancar Tasca');
+                        $(_render).closest('div').parent().remove();
 
-                        var tascaOberta = $(this).closest('div').parent();
+                        var tascaOberta = $(_render).closest('div').parent();
                         $divAssignedTask.append(tascaOberta);
 
                         //es cerca la tasca recuperant la id amb jquery
-                        var _t = taskList.get($(this).closest('div').parent().find("#boton").attr("value"))
-                        alert($(this).closest('div').parent().find("#boton").attr("value"))
+                        var _t = taskList.get($(_render).closest('div').parent().find("#boton").attr("value"))
+                        alert($(_render).closest('div').parent().find("#boton").attr("value"))
 
                         _t.save({taskState: 'assigned'}, {
                             success: function () {
@@ -186,13 +181,13 @@ define([
                         });
 
                         newTask.find('.btn-primary').click(function () {
-                            $(this).hide();
-                            $(this).closest('div').parent().remove();
-                            var tascaTancada = $(this).closest('div').parent();
+                            $(_render).hide();
+                            $(_render).closest('div').parent().remove();
+                            var tascaTancada = $(_render).closest('div').parent();
                             $divFinishTask.append(tascaTancada);
 
-                            var _ta = taskList.get($(this).closest('div').parent().find("#boton").attr("value"))
-                            alert($(this).closest('div').parent().find("#boton").attr("value"))
+                            var _ta = taskList.get($(_render).closest('div').parent().find("#boton").attr("value"))
+                            alert($(_render).closest('div').parent().find("#boton").attr("value"))
                             _ta.save({taskState: 'finish'}, {
                                 success: function () {
                                     console.log("Tasca eliminada")
@@ -224,7 +219,7 @@ define([
                         });
                     })
                 }
-            }
+            })
 
             return this
         }
