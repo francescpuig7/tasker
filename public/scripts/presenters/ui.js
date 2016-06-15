@@ -204,6 +204,7 @@ define([
 
     G.on('presenter:switch-ui:home', Ui.showHome)
     G.on('view:showContentAssignation:task',Ui.showAssignation)
+    G.on('views:dashboard:showdashboard', Ui.showDashboard)
 
 
     return Ui
