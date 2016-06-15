@@ -28,8 +28,6 @@ define([
         },
 
         assignTask: function(e){
-            //alert(e.currentTarget) // The element that was bound by the click event.
-
             var sel= $(e.target)
             var _id= sel.closest('div').parent().parent().find("#boton").attr("value")
             var _task= this.collection.get(_id);
@@ -181,9 +179,6 @@ define([
 
                         //es cerca la tasca recuperant la id amb jquery
                         var _t = taskList.get($(this).closest('div').parent().find("#boton").attr("value"))
-                        //var _t = taskList.get($("#boton").attr("value"))
-                        alert($(this).closest('div').parent().find("#boton").attr("value"))
-                        //alert($("#boton").attr("value"))
 
                         _t.save({taskState: 'assigned'}, {
                             success: function () {
@@ -201,7 +196,6 @@ define([
                             $divFinishTask.append(tascaTancada);
 
                             var _ta = taskList.get($(this).closest('div').parent().find("#boton").attr("value"))
-                            alert($(this).closest('div').parent().find("#boton").attr("value"))
                             _ta.save({taskState: 'finish'}, {
                                 success: function () {
                                     console.log("Tasca eliminada")
@@ -222,7 +216,6 @@ define([
                         $divFinishTask.append(tascaTancada);
 
                         var _ta = taskList.get($(this).closest('div').parent().find("#boton").attr("value"))
-                        alert($(this).closest('div').parent().find("#boton").attr("value"))
                         _ta.save({taskState: 'finish'}, {
                             success: function () {
                                 console.log("Tasca eliminada")
