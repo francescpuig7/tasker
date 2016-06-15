@@ -9,7 +9,7 @@ module.exports = function (app) {
   dao.Order = require('./d_order')(app, dao);
   dao.Task = require('./d_task')(app, dao);
   dao.Note = require('./d_note')(app, dao);
-  dao.User = require('./d_team')(app, dao);
+  dao.Team = require('./d_team')(app, dao);
 
   return dao;
 }
