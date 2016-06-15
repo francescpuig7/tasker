@@ -3,14 +3,16 @@
  */
 define([
     'global',
-    'text!/templates/team/team.html'
-], function(G, tl_team){
+    'text!/templates/team/team.html',
+    'text!/templates/task/contentTask.html'
+], function(G, tl_team, tl_contentTeam){
 
     var TeamView = G.Backbone.View.extend({
         className : 'container',
 
         initialize: function(){
             this.template = G._.template(tl_team)
+            this.templateTeam = G._.template(tl_contentTeam)
         },
 
         events: {
@@ -20,8 +22,12 @@ define([
         },
 
         newTeam: function(){
-            this.$el.find('#name').append(this.userData.username)
-            //G.trigger('view:team:update',this.userData, this.userTasks)
+            //var tlt= this.templateTeam;
+            confirm('Estas segur que vols crear aquest Team?')
+
+            var content= this.$el.find('.listAdd');
+            content.find('.glyphicon-trash').remove()
+            content.appendTo(this.$el.find('.team').first())
         },
 
         searchTeam: function(){
@@ -29,7 +35,6 @@ define([
         },
 
         searchTeamByEmail: function(){
-            alert("show")
             G.trigger('view:emailTeam:show', this.collection, this.$el, this.userData.email, this.$el.find('#InputEmailName').val())
         },
 

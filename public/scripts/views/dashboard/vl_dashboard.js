@@ -23,9 +23,21 @@ define([
 
         events:{ //tots els events
             'click #buttonOpenDashboard': 'openDashboard',
-            'click #buttonSaveChanges': 'createTask'
-            //'click .btn-primary': 'provassa'
-            //'click .btn-success': 'tancar'
+            'click #buttonSaveChanges': 'createTask',
+            'click #bAssignation':  'assignTask'
+        },
+
+        assignTask: function(e){
+            //alert(e.currentTarget) // The element that was bound by the click event.
+
+            var sel= $(e.target)
+            var _id= sel.closest('div').parent().parent().find("#boton").attr("value")
+            var _task= this.collection.get(_id);
+
+            G.localStorage.setItem("taskId",_id)
+            G.localStorage.setItem("task",_task)
+
+            G.trigger('view:showContentAssignation:task');
         },
 
         openDashboard: function(){ //passar aqui lho de la llista

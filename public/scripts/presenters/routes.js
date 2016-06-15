@@ -10,13 +10,15 @@ define([
       routes: {
         // Define some URL routes
         '': 'home',
-        'signup': 'signup',
-        'orders': 'showOrders',
+        'signup' : 'signup',
+        'orders' : 'showOrders',
         'dashboard' : 'showDashboard', //afegim la ruta per veure pissarra
-        'tasks': 'showTasks',
-        'profile': 'showProfile',
-        'howto': 'showHowto',
+        'tasks' : 'showTasks',
+        'profile' : 'showProfile',
+        'howto' : 'showHowto',
         'team' : 'showTeams',
+        'editTask': 'showEditTask',
+        'assignation': 'showAssignation',
         'notes': 'showNotes',
 
         // Default
@@ -57,6 +59,14 @@ define([
 
       showNotes: function (){
         P.Ui.switchContent('notes')
+      },
+
+      showEditTask: function(){
+        P.Ui.switchContent('editTask')
+      },
+
+      showAssignation: function () {
+        P.Ui.switchContent('assignation', G.localStorage.getItem('user'))
       }
     })
 

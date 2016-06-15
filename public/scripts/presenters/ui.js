@@ -13,9 +13,11 @@ define([
     'collections/c_tasks',
     'views/team/vl_team',
     'collections/c_users',
+    '../views/task/vl_editTask',
+    'views/assignation/vl_assignation',
     'views/note/vl_notes',
     'collections/c_notes'],
-  function (G, $, CollectionOrder, UserLogin, UserSignup, HeaderView, OrdersView, Dashboard, TaskView, Profile, HowTo, CollectionTask, Teams, CollectionUser, Note, CollectionNote) {
+  function (G, $, CollectionOrder, UserLogin, UserSignup, HeaderView, OrdersView, Dashboard, TaskView, Profile, HowTo, CollectionTask, Teams, CollectionUser, editTaskView, Assignation, Note, CollectionNote) {
 
     var Ui = {}
 
@@ -26,16 +28,17 @@ define([
     var orderList = new CollectionOrder()
     var ordersView = new OrdersView({collection: orderList}) //enllaça la vista amb la collection anterior
 
-      var taskList = new CollectionTask()
-      var dashboardView = new Dashboard({collection:taskList}) //INITIALIZE DE LA VISTA
-      //var dashboardView = new Dashboard() //INITIALIZE DE LA VISTA
-
-      var userList = new CollectionUser()
+    var taskList = new CollectionTask()
+    var dashboardView = new Dashboard({collection:taskList}) //INITIALIZE DE LA VISTA
+    // var dashboardView = new Dashboard() //INITIALIZE DE LA VISTA
+    var userList = new CollectionUser()
 
     var taskView = new TaskView()
+    var editTaskView= new editTaskView()
     var profileView = new Profile()
     var howtoView = new HowTo()
     var teamView = new Teams({collection: userList})
+    var assignationView = new Assignation({collection: userList})
 
     var noteList = new CollectionNote()
     var noteView = new Note({collection: noteList})
@@ -95,6 +98,11 @@ define([
             howtoView.delegateEvents()
             break
         }
+        case 'editTask':{
+            $content.html(editTaskView.render.apply(editTaskView, args).el)
+            editTaskView.delegateEvents()
+            break
+        }
         case 'team':{
             userList.fetch({
                 success: function () {
@@ -105,6 +113,16 @@ define([
             });
             break
         }
+        case 'assignation':{
+            userList.fetch({
+                success: function () {
+                    $content.html(assignationView.render.apply(assignationView, args).el)
+                    assignationView.delegateEvents()
+                },
+                error: Ui.error
+            });
+            break
+          }
         case 'notes':{
             /*noteList.fetch({
                 success: function(){
@@ -163,6 +181,12 @@ define([
               error: Ui.error
           })
       }
+      Ui.showAssignation = function(){
+          userList.fetch({
+              success: Ui.switchContent.bind(Ui, 'assignation'),
+              error: Ui.error
+          });
+      }
 
     Ui.errorBackbone  = function (data, res) {
       alert("Error: " + res.responseJSON.error.message)
@@ -179,6 +203,8 @@ define([
     }
 
     G.on('presenter:switch-ui:home', Ui.showHome)
+    G.on('view:showContentAssignation:task',Ui.showAssignation)
+
 
     return Ui
   })
