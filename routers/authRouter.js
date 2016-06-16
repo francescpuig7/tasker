@@ -24,8 +24,8 @@ module.exports = function(app) {
   router.get('/api/users/self/task', Tasks.getTasksByUserEmail, util.sendAuthError)
   router.put('/api/users', User.updateUser, util.sendAuthError)
   router.get('/api/users',User.getUsers, util.sendAuthError)
-  /*router.post('/api/users/self/note', Notes.create, util.sendAuthError())
-  router.get('/api/users/self/note', Notes.getNotes, util.sendAuthError())*/
+  router.post('/api/users/self/note', Notes.create, util.sendAuthError)
+  router.get('/api/users/self/note', Notes.getNotes, util.sendAuthError)
   router.post('/api/users/self/team', Team.create, util.sendAuthError)
 
   return router

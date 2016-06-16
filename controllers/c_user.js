@@ -84,6 +84,7 @@ module.exports = function (app) {
             .done();
       },
 
+
       getTasks: function(req, res){
           dao.Task.getTasks(req.user.username, {})
               .then(util.jsonResponse.bind(util,res))

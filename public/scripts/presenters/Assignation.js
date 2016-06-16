@@ -25,11 +25,10 @@ define([
             }
 
             $('.glyphicon-send').click(function(){
-                //alert("modificare "+idTask+" amb "+ $(this).closest('li').find("p").text());
-                //var _task = this.collection.get(1);
                 var user= $(this).closest('li').find("p").text();
                 var usuid= 1;
 
+                //busquem la id de l'usuari a assingar
                 for(var i=1; i<= collectionUsers.length; i++){
                     var _u= collectionUsers.get(i)
                     var _uEmail = _u.get("email");
@@ -50,6 +49,7 @@ define([
                         alert("No s'ha pogut assignar la tasca")
                     }});
 
+                G.trigger('views:dashboard:showdashboard')
             });
         })
     }

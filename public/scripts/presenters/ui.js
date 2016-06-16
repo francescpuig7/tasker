@@ -124,15 +124,13 @@ define([
             break
           }
         case 'notes':{
-            /*noteList.fetch({
+            noteList.fetch({
                 success: function(){
                     $content.html(noteView.render.apply(noteView, args).el)
                     noteView.delegateEvents()
                 },
                 error: Ui.error
-            })*/
-            $content.html(noteView.render.apply(noteView, args).el)
-            noteView.delegateEvents()
+            })
         }
       }
     }
@@ -204,7 +202,7 @@ define([
 
     G.on('presenter:switch-ui:home', Ui.showHome)
     G.on('view:showContentAssignation:task',Ui.showAssignation)
-    G.on('views:dashboard:showdashboard', Ui.showDashboard)
+    G.on('views:dashboard:showdashboard', Ui.showHome)
 
 
     return Ui

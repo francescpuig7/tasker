@@ -1,7 +1,6 @@
 exports.jsonResponse = function (res, obj) {
   res.status(200).json(obj || {message: 'ok'});
 };
-
 exports.throwError = function (code, type, reason, prevErr) {
   console.log("Throwing error ...");
   var err =  prevErr ? new Error(reason + ' (' + prevErr.message + ')') : new Error(reason);

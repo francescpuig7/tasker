@@ -9,7 +9,16 @@ module.exports = function(app){
     var dao = require('../dao')(app);
 
     return{
-        create: function(req, res){
+
+        create: function (req, res) {
+            db.sequelize.transaction(function(t){
+                return db.Note.create(req.body, {transaction: t})
+            }).then(util.jsonResponse.bind(util, res))
+                .catch(util.resendError.bind(util, res))
+                .done();
+        },
+
+        /*create: function(req, res){
             db.sequelize.transaction(function(t){
                 return dao.User.getByUsername(req.user.username, t)
                     .then(function(user){
@@ -20,13 +29,14 @@ module.exports = function(app){
                 .then(util.jsonResponse.bind(util, res))
                 .catch(util.resendError.bind(util, res))
                 .done();
-        },
+        },*/
 
         getNotes: function(req, res){
-            dao.Note.getUserNotes(req.user.username, {})
-                .then(util.jsonResponse.bind(util, res))
-                .catch(util.resendError.bind(util, res))
+            db.sequelize.transaction(function(t){
+                return db.Note.findAll({transaction: t})
+            }).then(util.jsonResponse.bind(util,res))
+                .catch(util.resendError.bind(util,res))
                 .done()
-        }
+        },
     }
 }
